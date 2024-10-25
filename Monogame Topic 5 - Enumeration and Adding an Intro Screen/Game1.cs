@@ -21,6 +21,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
         Vector2 greyTribbleSpeed, brownTribbleSpeed, creamTribbleSpeed, orangeTribbleSpeed;
 
         SoundEffect tribbleCoo;
+        SpriteFont instructionFont;
 
         Random generator = new Random();
 
@@ -52,7 +53,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
             orangeTribbleRect = new Rectangle(generator.Next(0, 701), generator.Next(0, 501), 100, 100);
             orangeTribbleSpeed = new Vector2(generator.Next(-10, 11), generator.Next(-10, 11));
 
-            window = new Rectangle(0, 0, 800, 500);
+            window = new Rectangle(0, 0, 800, 600);
             _graphics.PreferredBackBufferWidth = window.Width;
             _graphics.PreferredBackBufferHeight = window.Height;
             _graphics.ApplyChanges();
@@ -70,6 +71,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
             creamTribbleTexture = Content.Load<Texture2D>("tribbleCream");
             orangeTribbleTexture = Content.Load<Texture2D>("tribbleOrange");
             tribbleIntroTexture = Content.Load<Texture2D>("tribble_intro");
+            instructionFont = Content.Load<SpriteFont>("instruction");
             tribbleCoo = Content.Load<SoundEffect>("tribble_coo");
         }
 
@@ -141,7 +143,8 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
 
             if (screen == Screen.Intro)
             {
-                _spriteBatch.Draw(tribbleIntroTexture, new Rectangle(0, 0, 800, 500), Color.White);
+                _spriteBatch.Draw(tribbleIntroTexture, new Rectangle(0, 0, 800, 600), Color.White);
+                _spriteBatch.DrawString(instructionFont, "Click to continue", new Vector2(0, 0), Color.Black);
             }
             else if (screen == Screen.TribbleYard)
             {
