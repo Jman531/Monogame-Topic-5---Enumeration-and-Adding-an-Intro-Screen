@@ -10,6 +10,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        bool justUpdatedScreen = false;
 
         MouseState mouseState;
 
@@ -86,7 +87,10 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
             if (screen == Screen.Intro)
             {
                 if (mouseState.LeftButton == ButtonState.Pressed)
+                {
                     screen = Screen.TribbleYard;
+                    justUpdatedScreen = true;
+                }
             }
             else if (screen == Screen.TribbleYard)
             {
@@ -129,6 +133,12 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
                     orangeTribbleSpeed.Y *= -1;
                     tribbleCoo.Play();
                 }
+
+                if (mouseState.LeftButton != ButtonState.Pressed)
+                    justUpdatedScreen = false;
+
+                if (mouseState.LeftButton == ButtonState.Pressed && !justUpdatedScreen)
+                    this.Exit();
             }
 
             base.Update(gameTime);
@@ -144,7 +154,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
             if (screen == Screen.Intro)
             {
                 _spriteBatch.Draw(tribbleIntroTexture, new Rectangle(0, 0, 800, 600), Color.White);
-                _spriteBatch.DrawString(instructionFont, "Click to continue", new Vector2(0, 0), Color.Black);
+                _spriteBatch.DrawString(instructionFont, "Click to start.", new Vector2(0, 0), Color.Black);
             }
             else if (screen == Screen.TribbleYard)
             {
@@ -152,6 +162,7 @@ namespace Monogame_Topic_5___Enumeration_and_Adding_an_Intro_Screen
                 _spriteBatch.Draw(brownTribbleTexture, brownTribbleRect, Color.White);
                 _spriteBatch.Draw(creamTribbleTexture, creamTribbleRect, Color.White);
                 _spriteBatch.Draw(orangeTribbleTexture, orangeTribbleRect, Color.White);
+                _spriteBatch.DrawString(instructionFont, "Click to end.", new Vector2(0, 0), Color.Black);
             }
 
             _spriteBatch.End();
